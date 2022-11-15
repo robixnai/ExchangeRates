@@ -8,10 +8,10 @@
 import Foundation
 
 protocol RatesFluctuationDataProviderDelegate: DataProviderManagerDelegate {
-    func success(model: RatesFluctuationObject)
+    func success(model: [RateFluctuationModel])
 }
 
-class RatesFluctuationDataProvider: DataProviderManager<RatesFluctuationDataProviderDelegate, RatesFluctuationObject> {
+class RatesFluctuationDataProvider: DataProviderManager<RatesFluctuationDataProviderDelegate, [RateFluctuationModel]> {
     
     private let ratesStore: RatesStore
     
@@ -22,8 +22,10 @@ class RatesFluctuationDataProvider: DataProviderManager<RatesFluctuationDataProv
     func fetchFluctuation(by base: String, from symbols: [String], startDate: String, endDate: String) {
         Task.init {
             do {
-                let model = try await ratesStore.fetchFluctuation(by: base, from: symbols, startDate: startDate, endDate: endDate)
-                delegate?.success(model: model)
+                let object = try await ratesStore.fetchFluctuation(by: base, from: symbols, startDate: startDate, endDate: endDate)
+                delegate?.success(model: object.map({ (symbol, fluctuation) -> RateFluctuationModel in
+                    return RateFluctuationModel(symbol: symbol, change: fluctuation.change, changePct: fluctuation.changePct, endRate: fluctuation.endRate)
+                }))
             } catch {
                 delegate?.errorData(delegate, error: error)
             }

@@ -7,36 +7,20 @@
 
 import SwiftUI
 
-struct Fluctuation: Identifiable {
-    let id = UUID()
-    var symbol: String
-    var change: Double
-    var changePct: Double
-    var endRate: Double
-}
-
-class FluctuationViewModel: ObservableObject {
-    @Published var fluctuations: [Fluctuation] = [
-        Fluctuation(symbol: "USD", change: 0.0008, changePct: 0.4175, endRate: 0.18857),
-        Fluctuation(symbol: "EUR", change: 0.0003, changePct: 0.1651, endRate: 0.181353),
-        Fluctuation(symbol: "GBP", change: -0.0001, changePct: -0.0403, endRate: 0.158915)
-    ]
-    
-}
-
 struct RatesFluctuationView: View {
     
-    @StateObject var viewModel = FluctuationViewModel()
+    @StateObject var viewModel = ViewModel()
     
     @State private var searchText = ""
+    @State private var viewDidLoad = true
     @State private var isPresentedBaseCurrencyFilter = false
     @State private var isPresentedMultiCurrencyFilter = false
     
-    var searchResult: [Fluctuation] {
+    var searchResult: [RateFluctuationModel] {
         if searchText.isEmpty {
-            return viewModel.fluctuations
+            return viewModel.ratesFluctuation
         } else {
-            return viewModel.fluctuations.filter {
+            return viewModel.ratesFluctuation.filter {
                 $0.symbol.contains(searchText.uppercased()) ||
                 $0.change.formatter(decimalPlaces: 4).contains(searchText.uppercased()) ||
                 $0.changePct.toPercentage().contains(searchText.uppercased()) ||
@@ -61,8 +45,14 @@ struct RatesFluctuationView: View {
                     Image(systemName: "slider.horizontal.3")
                 }
                 .fullScreenCover(isPresented: $isPresentedMultiCurrencyFilter) {
-                    MultiCurrenciesFilterView()
+                    MultiCurrenciesFilterView(delegate: self)
                 }
+            }
+        }
+        .onAppear {
+            if viewDidLoad {
+                viewDidLoad.toggle()
+                viewModel.doFetchRatesFluctuation(timeRange: .today)
             }
         }
     }
@@ -72,7 +62,7 @@ struct RatesFluctuationView: View {
             Button {
                 isPresentedBaseCurrencyFilter.toggle()
             } label: {
-                Text("BRL")
+                Text(viewModel.baseCurrency)
                     .font(.system(size: 14, weight: .bold))
                     .padding(.init(top: 4, leading: 8, bottom: 4, trailing: 8))
                     .foregroundColor(.white)
@@ -82,50 +72,54 @@ struct RatesFluctuationView: View {
                     )
             }
             .fullScreenCover(isPresented: $isPresentedBaseCurrencyFilter, content: {
-                BaseCurrencyFilterView()
+                BaseCurrencyFilterView(delegate: self)
             })
             .background(Color(UIColor.lightGray))
             .cornerRadius(8)
             
             Button {
-                print("1 dia")
+                viewModel.doFetchRatesFluctuation(timeRange: .today)
             } label: {
                 Text("1 dia")
                     .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(.blue)
-                    .underline()
+                    .foregroundColor(viewModel.timeRange == .today ? .blue : .gray)
+                    .underline(viewModel.timeRange == .today)
             }
             
             Button {
-                print("7 dias")
+                viewModel.doFetchRatesFluctuation(timeRange: .thisWeek)
             } label: {
                 Text("7 dias")
                     .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(.gray)
+                    .foregroundColor(viewModel.timeRange == .thisWeek ? .blue : .gray)
+                    .underline(viewModel.timeRange == .thisWeek)
             }
             
             Button {
-                print("1 mês")
+                viewModel.doFetchRatesFluctuation(timeRange: .thisMonth)
             } label: {
                 Text("1 mês")
                     .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(.gray)
+                    .foregroundColor(viewModel.timeRange == .thisMonth ? .blue : .gray)
+                    .underline(viewModel.timeRange == .thisMonth)
             }
             
             Button {
-                print("6 meses")
+                viewModel.doFetchRatesFluctuation(timeRange: .thisSemester)
             } label: {
                 Text("6 meses")
                     .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(.gray)
+                    .foregroundColor(viewModel.timeRange == .thisSemester ? .blue : .gray)
+                    .underline(viewModel.timeRange == .thisSemester)
             }
             
             Button {
-                print("1 ano")
+                viewModel.doFetchRatesFluctuation(timeRange: .thisYear)
             } label: {
                 Text("1 ano")
                     .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(.gray)
+                    .foregroundColor(viewModel.timeRange == .thisYear ? .blue : .gray)
+                    .underline(viewModel.timeRange == .thisYear)
             }
         }
         .padding(.top, 8)
@@ -134,10 +128,10 @@ struct RatesFluctuationView: View {
     
     private var ratesFluctuationListView: some View {
         List(searchResult) { fluctuation in
-            NavigationLink(destination: RateFluctuationDetailView(baseCurrency: "BRL", rateFluctuation: fluctuation)) {
+            NavigationLink(destination: RateFluctuationDetailView(baseCurrency: viewModel.baseCurrency, rateFluctuation: fluctuation)) {
                 VStack {
                     HStack(alignment: .center, spacing: 8) {
-                        Text("\(fluctuation.symbol) / BRL")
+                        Text("\(fluctuation.symbol) / \(viewModel.baseCurrency)")
                             .font(.system(size: 14, weight: .medium))
                         Text(fluctuation.endRate.formatter(decimalPlaces: 2))
                             .font(.system(size: 14, weight: .bold))
@@ -158,6 +152,22 @@ struct RatesFluctuationView: View {
             .listRowBackground(Color.white)
         }
         .listStyle(.plain)
+    }
+}
+
+extension RatesFluctuationView: BaseCurrencyFilterViewDelegate {
+    
+    func didSelected(_ baseCurrency: String) {
+        viewModel.baseCurrency = baseCurrency
+        viewModel.doFetchRatesFluctuation(timeRange: .today)
+    }
+}
+
+extension RatesFluctuationView: MultiCurrenciesFilterViewDelegate {
+    
+    func didSelected(_ currencies: [String]) {
+        viewModel.currencies = currencies
+        viewModel.doFetchRatesFluctuation(timeRange: .today)
     }
 }
 
