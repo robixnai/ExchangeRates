@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import Combine
 
-protocol CurrencySymbolsDataProviderDelegate: DataProviderManagerDelegate {
-    func success(model: [CurrencySymbolModel])
+protocol CurrencySymbolsDataProviderProtocol {
+    func fetchSymbols() -> AnyPublisher<[CurrencySymbolModel], Error>
 }
 
-class CurrencySymbolsDataProvider: DataProviderManager<CurrencySymbolsDataProviderDelegate, [CurrencySymbolModel]> {
+class CurrencySymbolsDataProvider: CurrencySymbolsDataProviderProtocol {
     
     private let currencyStore: CurrencyStore
     
@@ -19,16 +20,26 @@ class CurrencySymbolsDataProvider: DataProviderManager<CurrencySymbolsDataProvid
         self.currencyStore = currencyStore
     }
     
-    func fetchSymbols() {
-        Task.init {
-            do {
-                let object = try await currencyStore.fetchSymbols()
-                delegate?.success(model: object.map({ (symbol, fullName) -> CurrencySymbolModel in
-                    return CurrencySymbolModel(symbol: symbol, fullName: fullName)
-                }))
-            } catch {
-                delegate?.errorData(delegate, error: error)
+    func fetchSymbols() -> AnyPublisher<[CurrencySymbolModel], Error> {
+        return Future { promise in
+            self.currencyStore.fetchSymbols { result, error in
+                DispatchQueue.main.async {
+                    if let error {
+                        return promise(.failure(error))
+                    }
+                    
+                    guard let symbols = result?.symbols else {
+                        return // promise(.failure(error)) TODO: - Passar esse erro para a ViewModel
+                    }
+                    
+                    let currenciesSymbol = symbols.map({ (key, value) -> CurrencySymbolModel in
+                        return CurrencySymbolModel(symbol: key, fullName: value)
+                    })
+                    
+                    return promise(.success(currenciesSymbol))
+                }
             }
-        }
+        }.eraseToAnyPublisher()
     }
+    
 }

@@ -20,22 +20,20 @@ struct BaseCurrencyFilterView: View {
     @State private var searchText = ""
     @State private var selection: String?
     
-    var delegate: BaseCurrencyFilterViewDelegate?
-    
-    var searchResults: [CurrencySymbolModel] {
-        if searchText.isEmpty {
-            return viewModel.currencySymbols
-        } else {
-            return viewModel.currencySymbols.filter {
-                $0.symbol.contains(searchText.uppercased()) ||
-                $0.fullName.uppercased().contains(searchText.uppercased())
-            }
-        }
-    }
+    var delegate: BaseCurrencyFilterViewDelegate? // TODO: - Fazer a passagem dos dados por reatividade
     
     var body: some View {
         NavigationView {
-            listCurenciesView
+            VStack {
+                if case .loading = viewModel.currentState {
+                    ProgressView()
+                        .scaleEffect(2.2, anchor: .center)
+                } else if case .success = viewModel.currentState {
+                    listCurenciesView
+                } else if case .failure = viewModel.currentState {
+                    erroView
+                }
+            }
         }
         .onAppear {
             viewModel.doFetchCurrencySymbols()
@@ -43,7 +41,7 @@ struct BaseCurrencyFilterView: View {
     }
     
     private var listCurenciesView: some View {
-        List(searchResults, id: \.symbol, selection: $selection) { item in
+        List(viewModel.searchResults, id: \.symbol, selection: $selection) { item in
             HStack {
                 Text(item.symbol)
                     .font(.system(size: 14, weight: .bold))
@@ -53,7 +51,16 @@ struct BaseCurrencyFilterView: View {
                     .font(.system(size: 14, weight: .semibold))
             }
         }
-        .searchable(text: $searchText)
+        .searchable(text: $searchText, prompt: "Buscar moeda base")
+        .onChange(of: searchText) { searchText in
+            if searchText.isEmpty {
+                viewModel.searchResults = viewModel.currencySymbols
+            } else {
+                viewModel.searchResults = viewModel.currencySymbols.filter {
+                    $0.symbol.contains(searchText.uppercased()) || $0.fullName.uppercased().contains(searchText.uppercased())
+                }
+            }
+        }
         .navigationTitle("Filtrar Moedas")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -67,6 +74,31 @@ struct BaseCurrencyFilterView: View {
                     .fontWeight(.bold)
             }
         }
+    }
+    
+    private var erroView: some View {
+        VStack(alignment: .center) {
+            Spacer()
+            
+            Image(systemName: "wifi.exclamationmark")
+                .resizable()
+                .frame(width: 60, height: 44)
+                .padding(.bottom, 4)
+            
+            Text("Ocorreu um erro na busca dos simbolos das moedas!")
+                .font(.headline.bold())
+                .multilineTextAlignment(.center)
+            
+            Button {
+                viewModel.doFetchCurrencySymbols()
+            } label: {
+                Text("Tentar novamente?")
+            }
+            .padding(.top, 4)
+            
+            Spacer()
+        }
+        .padding()
     }
 }
 

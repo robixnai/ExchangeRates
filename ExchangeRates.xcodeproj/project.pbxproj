@@ -14,13 +14,10 @@
 		6DC539FE2923FFAD006607A4 /* RatesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC539FD2923FFAD006607A4 /* RatesApi.swift */; };
 		6DC53A0129240072006607A4 /* RatesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A0029240072006607A4 /* RatesRouter.swift */; };
 		6DC53A032924007C006607A4 /* CurrencyRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A022924007C006607A4 /* CurrencyRouter.swift */; };
-		6DC53A06292403D8006607A4 /* BaseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A05292403D8006607A4 /* BaseStore.swift */; };
-		6DC53A09292404A3006607A4 /* RatesFluctuationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A08292404A3006607A4 /* RatesFluctuationObject.swift */; };
+		6DC53A06292403D8006607A4 /* GenericStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A05292403D8006607A4 /* GenericStore.swift */; };
 		6DC53A0B292405E2006607A4 /* CurrencySymbolObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A0A292405E2006607A4 /* CurrencySymbolObject.swift */; };
-		6DC53A0D29240631006607A4 /* RatesHistoricalObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A0C29240631006607A4 /* RatesHistoricalObject.swift */; };
 		6DC53A0F2924080E006607A4 /* RatesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A0E2924080E006607A4 /* RatesStore.swift */; };
 		6DC53A11292408F9006607A4 /* CurrencyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A10292408F9006607A4 /* CurrencyStore.swift */; };
-		6DC53A13292409CD006607A4 /* DataProviderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A12292409CD006607A4 /* DataProviderManager.swift */; };
 		6DC53A1629240A7C006607A4 /* RatesFluctuationDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A1529240A7C006607A4 /* RatesFluctuationDataProvider.swift */; };
 		6DC53A1829240B4F006607A4 /* RatesHistoricalDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A1729240B4F006607A4 /* RatesHistoricalDataProvider.swift */; };
 		6DC53A1B29240BA0006607A4 /* CurrencySymbolsDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A1A29240BA0006607A4 /* CurrencySymbolsDataProvider.swift */; };
@@ -37,6 +34,7 @@
 		6DC53A3629243694006607A4 /* MultiCurrenciesFilterViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A3529243694006607A4 /* MultiCurrenciesFilterViewViewModel.swift */; };
 		6DC53A38292437A4006607A4 /* RatesFluctuationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A37292437A4006607A4 /* RatesFluctuationViewModel.swift */; };
 		6DC53A3A29243EC3006607A4 /* RateFluctuationDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC53A3929243EC3006607A4 /* RateFluctuationDetailViewModel.swift */; };
+		6DCA1F982924713C00813B2A /* RateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DCA1F972924713C00813B2A /* RateObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,13 +46,10 @@
 		6DC539FD2923FFAD006607A4 /* RatesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesApi.swift; sourceTree = "<group>"; };
 		6DC53A0029240072006607A4 /* RatesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesRouter.swift; sourceTree = "<group>"; };
 		6DC53A022924007C006607A4 /* CurrencyRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRouter.swift; sourceTree = "<group>"; };
-		6DC53A05292403D8006607A4 /* BaseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStore.swift; sourceTree = "<group>"; };
-		6DC53A08292404A3006607A4 /* RatesFluctuationObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesFluctuationObject.swift; sourceTree = "<group>"; };
+		6DC53A05292403D8006607A4 /* GenericStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericStore.swift; sourceTree = "<group>"; };
 		6DC53A0A292405E2006607A4 /* CurrencySymbolObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySymbolObject.swift; sourceTree = "<group>"; };
-		6DC53A0C29240631006607A4 /* RatesHistoricalObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesHistoricalObject.swift; sourceTree = "<group>"; };
 		6DC53A0E2924080E006607A4 /* RatesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesStore.swift; sourceTree = "<group>"; };
 		6DC53A10292408F9006607A4 /* CurrencyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyStore.swift; sourceTree = "<group>"; };
-		6DC53A12292409CD006607A4 /* DataProviderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderManager.swift; sourceTree = "<group>"; };
 		6DC53A1529240A7C006607A4 /* RatesFluctuationDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesFluctuationDataProvider.swift; sourceTree = "<group>"; };
 		6DC53A1729240B4F006607A4 /* RatesHistoricalDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesHistoricalDataProvider.swift; sourceTree = "<group>"; };
 		6DC53A1A29240BA0006607A4 /* CurrencySymbolsDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySymbolsDataProvider.swift; sourceTree = "<group>"; };
@@ -71,6 +66,7 @@
 		6DC53A3529243694006607A4 /* MultiCurrenciesFilterViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiCurrenciesFilterViewViewModel.swift; sourceTree = "<group>"; };
 		6DC53A37292437A4006607A4 /* RatesFluctuationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesFluctuationViewModel.swift; sourceTree = "<group>"; };
 		6DC53A3929243EC3006607A4 /* RateFluctuationDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateFluctuationDetailViewModel.swift; sourceTree = "<group>"; };
+		6DCA1F972924713C00813B2A /* RateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,7 +125,6 @@
 				6DC53A1929240B94006607A4 /* CurrencySymbolsDataProvider */,
 				6DC53A1429240A72006607A4 /* RatesDataProvider */,
 				6DC539FB2923FF6C006607A4 /* NetworkRepository */,
-				6DC53A12292409CD006607A4 /* DataProviderManager.swift */,
 			);
 			path = DataProviders;
 			sourceTree = "<group>";
@@ -165,7 +160,7 @@
 		6DC53A04292403C2006607A4 /* Stores */ = {
 			isa = PBXGroup;
 			children = (
-				6DC53A05292403D8006607A4 /* BaseStore.swift */,
+				6DC53A05292403D8006607A4 /* GenericStore.swift */,
 				6DC53A0E2924080E006607A4 /* RatesStore.swift */,
 				6DC53A10292408F9006607A4 /* CurrencyStore.swift */,
 			);
@@ -175,9 +170,8 @@
 		6DC53A0729240488006607A4 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				6DC53A08292404A3006607A4 /* RatesFluctuationObject.swift */,
+				6DCA1F972924713C00813B2A /* RateObject.swift */,
 				6DC53A0A292405E2006607A4 /* CurrencySymbolObject.swift */,
-				6DC53A0C29240631006607A4 /* RatesHistoricalObject.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -226,9 +220,9 @@
 			isa = PBXGroup;
 			children = (
 				6DC53A3329243444006607A4 /* BaseCurrencyFilterViewModel.swift */,
+				6DC53A3929243EC3006607A4 /* RateFluctuationDetailViewModel.swift */,
 				6DC53A3529243694006607A4 /* MultiCurrenciesFilterViewViewModel.swift */,
 				6DC53A37292437A4006607A4 /* RatesFluctuationViewModel.swift */,
-				6DC53A3929243EC3006607A4 /* RateFluctuationDetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -303,11 +297,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DCA1F982924713C00813B2A /* RateObject.swift in Sources */,
 				6DC53A032924007C006607A4 /* CurrencyRouter.swift in Sources */,
 				6DC53A0129240072006607A4 /* RatesRouter.swift in Sources */,
-				6DC53A06292403D8006607A4 /* BaseStore.swift in Sources */,
+				6DC53A06292403D8006607A4 /* GenericStore.swift in Sources */,
 				6DC53A31292433DB006607A4 /* RateHistoricalModel.swift in Sources */,
-				6DC53A0D29240631006607A4 /* RatesHistoricalObject.swift in Sources */,
 				6DC53A2F292433A8006607A4 /* CurrencySymbolModel.swift in Sources */,
 				6DC53A38292437A4006607A4 /* RatesFluctuationViewModel.swift in Sources */,
 				6DC539EF2923FE36006607A4 /* ContentView.swift in Sources */,
@@ -319,9 +313,7 @@
 				6DC53A0B292405E2006607A4 /* CurrencySymbolObject.swift in Sources */,
 				6DC53A3A29243EC3006607A4 /* RateFluctuationDetailViewModel.swift in Sources */,
 				6DC53A0F2924080E006607A4 /* RatesStore.swift in Sources */,
-				6DC53A13292409CD006607A4 /* DataProviderManager.swift in Sources */,
 				6DC53A1B29240BA0006607A4 /* CurrencySymbolsDataProvider.swift in Sources */,
-				6DC53A09292404A3006607A4 /* RatesFluctuationObject.swift in Sources */,
 				6DC53A2429241C51006607A4 /* RateFluctuationDetailView.swift in Sources */,
 				6DC539FE2923FFAD006607A4 /* RatesApi.swift in Sources */,
 				6DC53A1E292410EF006607A4 /* RatesFluctuationView.swift in Sources */,
@@ -462,6 +454,7 @@
 				DEVELOPMENT_TEAM = SC9STAPP9T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Taxa de Câmbio";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -495,6 +488,7 @@
 				DEVELOPMENT_TEAM = SC9STAPP9T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Taxa de Câmbio";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
